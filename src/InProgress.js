@@ -1,11 +1,11 @@
 import React from "react";
 
-const Todo = (props) => {
+const InProgress = (props) => {
 	const {data} = props
 
   return (
     <>
-      {data.status === 'To Do' &&
+      {data.status === 'In Progress' &&
         <div className="border m-2 p-2">
           <b>{data.title}</b>
           <br />
@@ -18,4 +18,4 @@ const Todo = (props) => {
   );
 };
 
-export default Todo;
+export default InProgress;

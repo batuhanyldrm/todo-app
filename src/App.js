@@ -3,10 +3,16 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
+import { Button} from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+import CreateTodo from './CreateTodo';
+import Done from './Done';
+import InProgress from './InProgress';
 import Todo from './Todo';
-import Done from './List';
 
 function App(props) {
   const [datas, setDatas] = useState([
@@ -68,7 +74,7 @@ function App(props) {
 
   return (
     <div>
-      <Todo
+      <CreateTodo
         open={open}
         handleClose={handleClose}
         handleChange={handleChange}
@@ -85,24 +91,56 @@ function App(props) {
           <Button variant="outlined" onClick={() => setOpen(true)}>Create New Task</Button> 
         </div>
       </Box>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 5 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Done</TableCell>
-              <TableCell align="left">In Progress</TableCell>
-              <TableCell align="right">To Do</TableCell>
-            </TableRow>
-          </TableHead>
-        <TableBody>
-          {datas.map(data =>
-            <Done
-              data={data}
-            />
-          )}
-        </TableBody>
-        </Table>
-      </TableContainer>
+      <div>
+        <Accordion defaultExpanded>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="done"
+            id="done"
+          >
+            Done
+          </AccordionSummary>
+          <AccordionDetails>
+            {datas.map(data =>
+              <Done
+                data={data}
+              />
+            )}
+          </AccordionDetails>
+        </Accordion>
+        <Accordion defaultExpanded>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="in-progress"
+            id="in-progress"
+          >
+            In Progress
+          </AccordionSummary>
+          <AccordionDetails>
+            {datas.map(data =>
+              <InProgress
+                data={data}
+              />
+            )}
+          </AccordionDetails>
+        </Accordion>
+        <Accordion defaultExpanded>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="todo"
+            id="todo"
+          >
+            To Do
+          </AccordionSummary>
+          <AccordionDetails>
+            {datas.map(data =>
+              <Todo
+                data={data}
+              />
+            )}
+          </AccordionDetails>
+        </Accordion>
+      </div>
     </div>
   );
 }
